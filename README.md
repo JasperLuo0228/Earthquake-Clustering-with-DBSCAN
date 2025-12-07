@@ -1,63 +1,51 @@
-# Fall 2025, PSTAT231 Final Project: Gaussian Mixture Models
+# Fall 2025, PSTAT231 Final Project: DBSCAN and Earthquake Clustering
 
 ## Overview
-This project investigates clustering methods for real-world earthquake data using both probabilistic and density-based approaches. 
-Our primary methodological foundation is DBSCAN, following the original KDD 1996 paper 
-[*A Density-Based Algorithm for Discovering Clusters in Large Spatial Databases with Noise*](https://www.dbs.ifi.lmu.de/Publikationen/Papers/KDD-96.final.frame.pdf).
+This project investigates density-based clustering using DBSCAN and applies it to real-world earthquake data. 
+Our theoretical foundation is the original KDD 1996 paper 
+[*A Density-Based Algorithm for Discovering Clusters in Large Spatial Databases with Noise*](https://www.dbs.ifi.lmu.de/Publikationen/Papers/KDD-96.final.frame.pdf),
+which introduced the key concepts of core points, border points, noise points, density-reachability, and density-connectivity.
 
-To highlight the contrast between density-based and model-based clustering, we additionally apply 
-Gaussian Mixture Models (GMMs) as a baseline method. The goal is to compare how these two approaches 
-handle spatial earthquake patterns, cluster shapes, and noise.
-
-We analyze global earthquake data obtained from the 
-[USGS Earthquake Catalog](https://earthquake.usgs.gov/earthquakes/search/), perform clustering using both DBSCAN and GMM, 
-and visualize the resulting seismic clusters to interpret real-world tectonic structure.
+We first reproduce the main ideas and illustrative examples from the DBSCAN paper using synthetic datasets.  
+Then, we apply DBSCAN to global earthquake data obtained from the 
+[USGS Earthquake Catalog](https://earthquake.usgs.gov/earthquakes/search/) 
+to identify seismic clusters and analyze their spatial patterns.
 
 The final deliverables include:
 - A reproducible R Markdown analysis (`project.Rmd`)
-- Replication experiments for the JMLR paper
+- Replication of DBSCAN theory and synthetic examples
 - An extension experiment using real earthquake data
-- Visualizations and discussion of theory vs. practice
+- Visualizations and discussion of clustering behavior in theory vs. practice
 
 ---
 
 ## Division of Work
 
-### Zifeng Zhan
-- **Theory Section (Main Paper: DBSCAN, KDD 1996)**
+### **Zifeng Zhan**
+- **Theory Section**
   - Explain density-based clustering concepts
   - Define Eps-neighborhood, core/border/noise points
   - Describe density-reachability and density-connectivity
-  - Summarize DBSCAN algorithm and the k-dist method for parameter selection
+  - Summarize DBSCAN algorithm and the k-dist method for parameter tuning
   - Discuss why DBSCAN is suitable for spatial datasets such as earthquake epicenters
-- **Background (Lightweight GMM overview for comparison)**
-  - Provide brief intuition behind Gaussian Mixture Models (GMMs)
-  - Explain EM-based clustering at a high level (no detailed derivation needed)
 - **Writing**
-  - Write Sections 1–2 of the report (DBSCAN theory + brief GMM background)
-  - Contribute to the Introduction and Conclusion
+  - Write Sections 1–2 (theory)
+  - Contribute to Introduction and Conclusion
 
-### Jasper Luo
+---
+
+### **Jasper Luo**
 - **Dataset Collection & Preprocessing**
-  - Retrieve earthquake data from the USGS Earthquake Catalog API
+  - Retrieve earthquake data via the USGS API
   - Clean and prepare variables (longitude, latitude, depth, magnitude)
-- **Main Experiment**
-  - Apply DBSCAN to earthquake data
-    - Tune parameters (Eps, MinPts) using k-distance plots
-    - Identify clusters and noise patterns
-    - Generate spatial and scatter visualizations
-  - Apply GMM as a baseline clustering method
-    - Fit models with different numbers of components
-    - Visualize and compare cluster assignments
-- **Comparison & Analysis**
-  - Compare DBSCAN and GMM in terms of:
-    - cluster shape flexibility
-    - noise detection
-    - sensitivity to density variations
-    - ability to represent real seismic structures
+- **Experiments**
+  - Generate synthetic datasets similar to those in the DBSCAN paper
+  - Apply DBSCAN to synthetic and real earthquake datasets
+  - Tune parameters (Eps, MinPts) using k-distance plots
+  - Visualize clusters and noise patterns
 - **Writing**
-  - Write Sections 3–4 of the report (experiments + GMM vs DBSCAN comparison)
-  - Contribute to the Introduction and Conclusion
+  - Write Section 3 (experiments + results)
+  - Contribute to Introduction and Conclusion
 
 ---
 
@@ -68,21 +56,25 @@ project/
 │── README.md
 │── project.Rmd
 │── data/
-│ └── earthquakes.csv
+│   └── earthquakes.csv
 │── src/
-│ ├── download_usgs_data.R
-│ ├── PLACE_HOLDER.R
-│ ├── PLACE_HOLDER.R
-│ └── PLACE_HOLDER.R
+│   ├── download_usgs_data.R
+│   ├── synthetic_data_db1.R
+│   ├── synthetic_data_db2.R
+│   ├── synthetic_data_db3.R
+│   └── run_dbscan.R
 └── figures/
-    ├── PLACE_HOLDER.png
-    ├── PLACE_HOLDER.png
-    └── PLACE_HOLDER.png
+    ├── dbscan_db1.png
+    ├── dbscan_db2.png
+    ├── dbscan_db3.png
+    ├── earthquake_clusters.png
+    └── kdist_plot.png
 ```
+
 ---
 
 ## Reproducibility
-All code is written in R and can be executed by knitting `project.Rmd`. 
-The USGS data can be downloaded automatically via `src/download_usgs_data.R`.
+All code is written in R and can be executed by knitting `project.Rmd`.  
+The USGS earthquake dataset is automatically downloaded using `src/download_usgs_data.R`.
 
 ---
